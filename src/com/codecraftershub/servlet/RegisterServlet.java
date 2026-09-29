@@ -15,11 +15,20 @@ import java.sql.PreparedStatement;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
+private static final String URL =
+        System.getenv("DB_URL") != null
+        ? System.getenv("DB_URL")
+        : System.getenv("MYSQL_URL");
 
-    private static final String URL = System.getenv("DB_URL");
-    private static final String DB_USER = System.getenv("DB_USER");
-    private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
-    protected void doPost(
+private static final String DB_USER =
+        System.getenv("DB_USER") != null
+        ? System.getenv("DB_USER")
+        : System.getenv("MYSQLUSER");
+
+private static final String DB_PASSWORD =
+        System.getenv("DB_PASSWORD") != null
+        ? System.getenv("DB_PASSWORD")
+        : System.getenv("MYSQLPASSWORD");    protected void doPost(
             HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
