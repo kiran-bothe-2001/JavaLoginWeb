@@ -15,10 +15,21 @@ import java.sql.PreparedStatement;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
-private static final String URL =
-        System.getenv("DB_URL") != null
-        ? System.getenv("DB_URL")
-        : System.getenv("MYSQL_URL");
+private static String getDatabaseUrl() {
+    String url = System.getenv("DB_URL");
+
+    if (url == null || url.isEmpty()) {
+        url = System.getenv("MYSQL_URL");
+    }
+
+    if (url != null && url.startsWith("mysql://")) {
+        url = "jdbc:" + url;
+    }
+
+    return url;
+}
+
+private static final String URL = getDatabaseUrl();
 
 private static final String DB_USER =
         System.getenv("DB_USER") != null
